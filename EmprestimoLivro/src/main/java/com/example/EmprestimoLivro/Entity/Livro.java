@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Livro {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "id_emprestimo", referencedColumnName = "id")
     @JsonBackReference
     private Emprestimo emprestimo;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String autor;
