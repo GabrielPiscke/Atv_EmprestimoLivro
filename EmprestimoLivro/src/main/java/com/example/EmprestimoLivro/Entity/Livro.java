@@ -6,15 +6,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Livro {
-    @ManyToOne
-    @JoinColumn(name = "id_emprestimo", referencedColumnName = "id")
-    @JsonBackReference
-    private Emprestimo emprestimo;
+public class Livro implements Serializable {
+    @ManyToMany(mappedBy = "livros")
+    private Set<Emprestimo> emprestimos;
+
+    public Livro(Long id, String nome, String autor, long isbn, String genero){
+        this.id = id;
+        this.nome = nome;
+        this.autor = autor;
+        this.isbn = isbn;
+        this.genero = genero;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
