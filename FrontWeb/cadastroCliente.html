@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Cliente</title>
+
+    <script src="cliente.js" defer></script>
+</head>
+<body>
+    <h1><b>Cadastro Cliente</b></h1>
+<form id="formCliente">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" placeholder="Nome do Cliente">
+</br>
+</br>
+
+    <label for="sobrenome">Sobrenome:</label>
+    <input type="text" id="sobrenome" placeholder="Sobrenome do Cliente">
+</br>
+</br>
+
+    <label for="cpf">Cpf:</label>
+    <input type="text" id="cpf" placeholder="Informe o Cpf">
+
+</br>
+</br>
+</form>
+
+    <button id="cadastrarClienteBtn">Enviar</button>
+</br>
+<hr>
+    <h1><b>Lista de Cliente</b></h1>
+
+    <button id="carregarClienteBtn">Carregar Cliente</button>
+    <ul id="saida"></ul>
+    <br>
+    <hr>
+    <button onclick="window.location.href = '/clienteUpd.html';">Pagina Atualizar</button>
+   
+</body>
+</html>

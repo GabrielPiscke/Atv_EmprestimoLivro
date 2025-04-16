@@ -1,19 +1,19 @@
   function cadastrar(){
     const formData = {
       nome: String(document.getElementById('nome').value),
-      valor: Number(document.getElementById('valor').value),
-      saldo: Number(document.getElementById('saldo').value),
-      saldominimo: Number(document.getElementById('saldominimo').value)
+      sobrenome: String(document.getElementById('sobrenome').value),
+      cpf: String(document.getElementById('cpf').value),
+      
     };
+    console.log(formData);
 
-    fetch('http://localhost:8080/produto', {
-
+    fetch('http://localhost:8080/cliente', {
+        
       method: 'POST', // Especifica o método como POST
       headers: {
         'Content-Type': 'application/json', // Define que o corpo da requisição será em formato JSON
       },
       body: JSON.stringify(formData) // Dados que você deseja enviar no corpo da requisição
-    
     })
 
     .then(response => {
@@ -22,18 +22,18 @@
       }
       return response.json(); // Converte a resposta para JSON
     })
-    .then(data => {alert("Produto cadastrado com sucesso!");
-    document.getElementById("formProduto").reset(); // Limpa o formulário
+    .then(data => {alert("Cliente cadastrado com sucesso!");
+    document.getElementById("formCliente").reset(); // Limpa o formulário
     carregar(); // Atualiza a lista automaticamente
     })
     .catch(error => console.error('Erro:', error)); // Trata qualquer erro
   }
   
   function carregar(){
-    fetch("http://localhost:8080/produto")
+    fetch("http://localhost:8080/cliente")
     .then(response => {
         if (!response.ok) {
-            throw new Error("Erro ao buscar produtos");
+            throw new Error("Erro ao buscar clientes");
         }
         return response.json();
     })
@@ -41,16 +41,16 @@
         let lista = document.getElementById("saida");
         lista.innerHTML = ""; // Limpa a lista antes de exibir
 
-        data.forEach(produto => {
+        data.forEach(cliente => {
             let item = document.createElement("li");
-            item.textContent = `${produto.id} - ${produto.nome} - R$ ${produto.valor.toFixed(2)} - Saldo: ${produto.saldo} - Saldo Minimo: ${produto.saldominimo} - `;
+            item.textContent = `${cliente.id} - Nome: ${cliente.nome} - Sobrenome ${cliente.sobrenome} - Cpf: ${cliente.cpf} - `;
             
             // Criar o botão de deletar
             let botaoDeletar = document.createElement("button");
             botaoDeletar.textContent = "Deletar";
 
             botaoDeletar.onclick = function() {
-              deletarProduto(produto.id); // Chama a função deletarProduto com o id do produto
+              deletarProduto(cliente.id); // Chama a função deletarProduto com o id do produto
             };
 
             // Adicionar o botão ao item da lista
@@ -60,14 +60,14 @@
         });
     })
     .catch(error => {
-        console.error("Erro ao buscar produtos:", error);
-        alert("Erro ao buscar produtos. Verifique o console.");
+        console.error("Erro ao buscar clientes:", error);
+        alert("Erro ao buscar clientes. Verifique o console.");
     });
   }
 
-    function deletarProduto(produtoId) {
+    function deletarCliente(clienteId) {
     // A URL do endpoint para deletar o produto, usando o ID
-    const url = `http://localhost:8080/produto/${produtoId}`;
+    const url = `http://localhost:8080/cliente/${clienteId}`;
     console.log(url);
 
     fetch(url, {
@@ -80,11 +80,11 @@
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Erro ao deletar o produto!');
+            throw new Error('Erro ao deletar o cliente!');
         }
         let lista = document.getElementById("saida");
         lista.innerHTML = "";
-        alert('Produto deletado com sucesso:');
+        alert('Cliente deletado com sucesso:');
     })
     .catch(error => {
         console.error('Erro:', error);
@@ -93,21 +93,20 @@
     carregar();
     }
 
-    
-
   function configurar() {
-    let carregarProdutoBtn = document.getElementById('carregarProdutoBtn');
-    let cadastrarProdutoBtn = document.getElementById('cadastrarProdutoBtn');
-   
+    let carregarClienteBtn = document.getElementById('carregarClienteBtn');
+    let cadastrarClienteBtn = document.getElementById('cadastrarClienteBtn');
+    
     //prettier-ignore
-    if ((carregarProdutoBtn instanceof HTMLButtonElement)
-     && (cadastrarProdutoBtn instanceof HTMLButtonElement)) {
+    if ((carregarClienteBtn instanceof HTMLButtonElement)
+        && (cadastrarClienteBtn instanceof HTMLButtonElement)) {
 
-      cadastrarProdutoBtn.addEventListener('click', () => {
+
+      cadastrarClienteBtn.addEventListener('click', () => {
           cadastrar();
       });
   
-      carregarProdutoBtn.addEventListener('click', () => {
+      carregarClienteBtn.addEventListener('click', () => {
         carregar();
       });
 

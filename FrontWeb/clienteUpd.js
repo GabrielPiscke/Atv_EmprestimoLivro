@@ -1,9 +1,9 @@
  
     function carregar(){
-        fetch("http://localhost:8080/produto")
+        fetch("http://localhost:8080/cliente")
         .then(response => {
             if (!response.ok) {
-                throw new Error("Erro ao buscar produtos");
+                throw new Error("Erro ao buscar cliente");
             }
             return response.json();
         })
@@ -11,16 +11,16 @@
             let lista = document.getElementById("saida");
             lista.innerHTML = ""; // Limpa a lista antes de exibir
 
-            data.forEach(produto => {
+            data.forEach(cliente => {
                 let item = document.createElement("li");
-                item.textContent = `${produto.id} - ${produto.nome} - R$ ${produto.valor.toFixed(2)} - Saldo: ${produto.saldo} - Saldo Minimo: ${produto.saldominimo}`;
+                item.textContent = `${cliente.id} - Nome: ${cliente.nome} - Sobrenome ${cliente.sobrenome} - Cpf: ${cliente.cpf} - `;
                 
                 // Criar o botão de deletar
                 let botaoDeletar = document.createElement("button");
                 botaoDeletar.textContent = "Deletar";
 
                 botaoDeletar.onclick = function() {
-                deletarProduto(produto.id); // Chama a função deletarProduto com o id do produto
+                deletarProduto(cliente.id); // Chama a função deletarProduto com o id do cliente
                 };
 
                 // Adicionar o botão ao item da lista
@@ -30,14 +30,14 @@
             });
         })
         .catch(error => {
-            console.error("Erro ao buscar produtos:", error);
-            alert("Erro ao buscar produtos. Verifique o console.");
+            console.error("Erro ao buscar clientes:", error);
+            alert("Erro ao buscar clientes. Verifique o console.");
         });
     }
 
-    function deletarProduto(produtoId) {
+    function deletarProduto(clienteId) {
     // A URL do endpoint para deletar o produto, usando o ID
-    const url = `http://localhost:8080/produto/${produtoId}`;
+    const url = `http://localhost:8080/cliente/${clienteId}`;
     console.log(url);
 
     fetch(url, {
@@ -50,11 +50,11 @@
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Erro ao deletar o produto!');
+            throw new Error('Erro ao deletar o cliente!');
         }
         let lista = document.getElementById("saida");
         lista.innerHTML = "";
-        alert('Produto deletado com sucesso:');
+        alert('Cliente deletado com sucesso:');
     })
     .catch(error => {
         console.error('Erro:', error);
@@ -70,11 +70,10 @@
        console.log(id)
          const dados = {
             nome: String(document.getElementById('nome').value),
-            valor: Number(document.getElementById('valor').value),
-            saldo: Number(document.getElementById('saldo').value),
-            saldominimo: Number(document.getElementById('saldominimo').value)
+            sobrenome: String(document.getElementById('sobrenome').value),
+            cpf: String(document.getElementById('cpf').value),
         }
-        fetch(`http://localhost:8080/produto/${id}`, {
+        fetch(`http://localhost:8080/cliente/${id}`, {
             method: 'PUT', // Usando o método PUT
             headers: {
                 'Content-Type': 'application/json', // Define que os dados são JSON
@@ -83,17 +82,17 @@
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erro ao atualizar o produto!');
+                throw new Error('Erro ao atualizar o cliente!');
             }
             return response.json(); // Resposta em JSON
         })
         .then(data => {
-            console.log('Produto atualizado com sucesso:', data);
-            alert('Produto atualizado com sucesso!');
+            console.log('Cliente atualizado com sucesso:', data);
+            alert('Cliente atualizado com sucesso!');
         })
         .catch(error => {
             console.error('Erro:', error);
-            alert('Erro ao atualizar produto');
+            alert('Erro ao atualizar cliente');
         });
         carregar();
     }
@@ -103,27 +102,27 @@
         return id;
     }
     function preencherFormulario() {
-        const idProduto = getIdFromUrl(); // Pega o ID da URL
+        const idCliente = getIdFromUrl(); // Pega o ID da URL
 
-        if (!idProduto) {
+        if (!idCliente) {
             console.error("ID não encontrado na URL");
             return;
         }
 
         // Requisição para buscar os dados do produto com o ID
-        fetch(`http://localhost:8080/produto/${idProduto}`)
+        fetch(`http://localhost:8080/cliente/${idCliente}`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Erro ao buscar os dados do produto');
+                    throw new Error('Erro ao buscar os dados do cliente');
                 }
                 return response.json();
             })
             .then(data => {
+                console.log(data)
                 // Preencher os campos do formulário com os dados recebidos
                 document.getElementById('nome').value = data.nome || '';
-                document.getElementById('valor').value = data.valor || '';
-                document.getElementById('saldo').value = data.saldo || '';
-                document.getElementById('saldominimo').value = data.saldominimo || '';
+                document.getElementById('sobrenome').value = data.sobrenome || '';
+                document.getElementById('cpf').value = data.cpf || '';
             })
             .catch(error => {
                 console.error('Erro ao preencher o formulário:', error);
@@ -132,18 +131,18 @@
 
     function configurar() {
         preencherFormulario();
-        let carregarProdutoBtn = document.getElementById('carregarProdutoBtn');
-        let atualizarProdutoBtn = document.getElementById('atualizarProdutoBtn');
+        let carregarClienteBtn = document.getElementById('carregarClienteBtn');
+        let atualizarClienteBtn = document.getElementById('atualizarClienteBtn');
     
         //prettier-ignore
-        if ((carregarProdutoBtn instanceof HTMLButtonElement) && 
-        (atualizarProdutoBtn instanceof HTMLButtonElement)) {
+        if ((carregarClienteBtn instanceof HTMLButtonElement) && 
+        (atualizarClienteBtn instanceof HTMLButtonElement)) {
     
-        carregarProdutoBtn.addEventListener('click', () => {
+        carregarClienteBtn.addEventListener('click', () => {
             carregar();
         });
 
-        atualizarProdutoBtn.addEventListener('click', () => {
+        atualizarClienteBtn.addEventListener('click', () => {
             atualizar();
         });
 
