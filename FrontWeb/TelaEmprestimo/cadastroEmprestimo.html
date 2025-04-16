@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Cliente</title>
+
+    <script src="emprestimo.js" defer></script>
+</head>
+<body>
+    <h1><b>Emprestimo de Livro</b></h1>
+<form id="formEmprestimo">
+    <label for="datainicial">Data Inicial:</label>
+    <input type="date" id="datainicial" placeholder="Inicio do Emprestimo">
+</br>
+</br>
+
+    <label for="datafinal">Data Final:</label>
+    <input type="date" id="datafinal" placeholder="Fim do Emprestimo">
+
+</br>
+</br>
+</form>
+
+    <button id="criarEmprestimoBtn">Enviar</button>
+</br>
+<hr>
+    <h1><b>Lista de Emprestimos</b></h1>
+
+    <button id="carregarEmprestimosBtn">Carregar Emprestimos</button>
+    <ul id="saida"></ul>
+    <br>
+    <hr>
+    <button onclick="window.location.href = '/TelaEmprestimo/emprestimoUpd.html';">Atualizar Emprestimo</button>
+   
+</body>
+</html>

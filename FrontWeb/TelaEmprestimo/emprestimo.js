@@ -1,9 +1,7 @@
-  function cadastrar(){
+  function criar(){
     const formData = {
-      nome: String(document.getElementById('nome').value),
-      sobrenome: String(document.getElementById('sobrenome').value),
-      cpf: String(document.getElementById('cpf').value),
-      
+      data_inicio: data(document.getElementById('datainicial').value),
+      data_final: data(document.getElementById('datafinal').value)
     };
     console.log(formData);
 
@@ -50,7 +48,7 @@
             botaoDeletar.textContent = "Deletar";
 
             botaoDeletar.onclick = function() {
-              deletarProduto(cliente.id); // Chama a função deletarProduto com o id do produto
+              deletarCliente(cliente.id); // Chama a função deletarProduto com o id do produto
             };
 
             // Adicionar o botão ao item da lista
@@ -94,19 +92,19 @@
     }
 
   function configurar() {
-    let carregarClienteBtn = document.getElementById('carregarClienteBtn');
-    let cadastrarClienteBtn = document.getElementById('cadastrarClienteBtn');
+    let carregarEmprestimoBtn = document.getElementById('carregarEmprestimoBtn');
+    let criarEmprestimoBtn = document.getElementById('criarEmprestimoBtn');
     
     //prettier-ignore
-    if ((carregarClienteBtn instanceof HTMLButtonElement)
-        && (cadastrarClienteBtn instanceof HTMLButtonElement)) {
+    if ((carregarEmprestimoBtn instanceof HTMLButtonElement)
+        && (criarEmprestimoBtn instanceof HTMLButtonElement)) {
 
 
-      cadastrarClienteBtn.addEventListener('click', () => {
-          cadastrar();
+          criarEmprestimoBtn.addEventListener('click', () => {
+          criar();
       });
   
-      carregarClienteBtn.addEventListener('click', () => {
+      carregarEmprestimoBtn.addEventListener('click', () => {
         carregar();
       });
 
