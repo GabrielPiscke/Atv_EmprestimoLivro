@@ -21,9 +21,18 @@ public class Cliente implements Serializable {
     private long id;
     private String nome;
     private String sobrenome;
+    @Column(unique = true)
     private String cpf;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Emprestimo> emprestimo;
+
+    public Cliente(Long id, String nome, String sobrenome, String cpf){
+        this.id = id;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.cpf = cpf;
+    }
+
 }

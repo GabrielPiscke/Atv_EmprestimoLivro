@@ -48,6 +48,10 @@ public class LivroService {
         }
 //        return livrorepository.findById(id).map(this::toDTO);
     }
+    public List<Livro> getByNome(String nome){
+        return livrorepository.findAllByNome(nome);
+//        return livrorepository.findById(id).map(this::toDTO);
+    }
 
     public LivroDto saveDto(LivroDto livroDTO){
         Livro livro = this.fromDTO(livroDTO);
@@ -71,6 +75,7 @@ public class LivroService {
             return Optional.empty();
         }
     }
+
     public boolean delete(Long id){
         if(livrorepository.existsById(id)){
             livrorepository.deleteById(id);

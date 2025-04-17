@@ -15,6 +15,15 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 public class Livro implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String nome;
+    private String autor;
+    private long isbn;
+    private String genero;
+
     @ManyToMany(mappedBy = "livros")
     @JsonIgnore
     private Set<Emprestimo> emprestimos;
@@ -27,12 +36,6 @@ public class Livro implements Serializable {
         this.genero = genero;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String nome;
-    private String autor;
-    private long isbn;
-    private String genero;
+
 
 }

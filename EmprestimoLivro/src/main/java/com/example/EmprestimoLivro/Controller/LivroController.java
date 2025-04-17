@@ -18,8 +18,13 @@ public class LivroController {
     private LivroService livroService;
 
     @GetMapping
-    public ResponseEntity<List<Livro>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(livroService.getAll());
+    public List<Livro> getAll(@RequestParam(required = false) String nome){
+
+        if(nome != null && !nome.isEmpty()){
+           return livroService.getByNome(nome);
+        }else{
+            return livroService.getAll();
+        }
     }
 
     @GetMapping("/{id}")
@@ -32,6 +37,7 @@ public class LivroController {
         }
         //return livroDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @PostMapping
     public ResponseEntity<LivroDto> created(@RequestBody LivroDto livroDto){
