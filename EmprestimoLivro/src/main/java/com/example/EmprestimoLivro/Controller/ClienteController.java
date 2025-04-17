@@ -2,6 +2,7 @@ package com.example.EmprestimoLivro.Controller;
 
 import com.example.EmprestimoLivro.Dto.ClienteDto;
 import com.example.EmprestimoLivro.Entity.Cliente;
+import com.example.EmprestimoLivro.Entity.Livro;
 import com.example.EmprestimoLivro.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,13 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(clienteService.getAll());
+    public List<Cliente> getAll(@RequestParam(required = false) String nome){
+
+        if(nome != null && !nome.isEmpty()){
+            return clienteService.getByNome(nome);
+        }else{
+            return clienteService.getAll();
+        }
     }
 
     @GetMapping("/{id}")

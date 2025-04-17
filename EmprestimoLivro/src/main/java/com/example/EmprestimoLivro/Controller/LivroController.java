@@ -18,10 +18,10 @@ public class LivroController {
     private LivroService livroService;
 
     @GetMapping
-    public List<Livro> getAll(@RequestParam(required = false) String nome){
+    public List<Livro> getAll(@RequestParam(required = false) String genero){
 
-        if(nome != null && !nome.isEmpty()){
-           return livroService.getByNome(nome);
+        if(genero != null && !genero.isEmpty()){
+           return livroService.getByGenero(genero);
         }else{
             return livroService.getAll();
         }

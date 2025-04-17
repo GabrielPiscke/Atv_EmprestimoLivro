@@ -48,8 +48,8 @@ public class LivroService {
         }
 //        return livrorepository.findById(id).map(this::toDTO);
     }
-    public List<Livro> getByNome(String nome){
-        return livrorepository.findAllByNome(nome);
+    public List<Livro> getByGenero(String genero){
+        return livrorepository.findAllByGenero(genero);
 //        return livrorepository.findById(id).map(this::toDTO);
     }
 

@@ -37,6 +37,11 @@ public class ClienteService {
         return clienterepository.findAll();
     }
 
+    public List<Cliente> getByNome(String nome){
+        return clienterepository.findAllByNome(nome);
+//        return livrorepository.findById(id).map(this::toDTO);
+    }
+
     public Optional<ClienteDto> getById(Long id){
         Optional<Cliente> optionalCliente = clienterepository.findById(id);
         if(optionalCliente.isPresent()){
