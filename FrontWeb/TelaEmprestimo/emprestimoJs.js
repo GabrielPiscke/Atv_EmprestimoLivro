@@ -117,8 +117,8 @@
         }));
         
         let formData = {
-            dataInicial: document.getElementById("dataInicial").value,
-            dataFinal: document.getElementById("dataFinal").value,
+            data_inicial: document.getElementById("dataInicial").value,
+            data_final: document.getElementById("dataFinal").value,
             cliente:{
                 id: document.getElementById("clienteSelect").value
             },
@@ -132,6 +132,7 @@
         event.preventDefault();
         
         let formData = criarObjetoEmprestimo();
+        console.log(formData)
         
         try {
             let response = await fetch("http://localhost:8080/emprestimo", {
