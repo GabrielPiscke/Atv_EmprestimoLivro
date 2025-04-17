@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="emprestimoEditJs.js" defer></script>
+
+    <title>Atualizar Emprestimo</title>
+</head>
+<body>
+    <h2>Update de Emprestimo</h2>
+    <form id="emprestimoForm">
+        <input type="hidden" id="emprestimoId">
+
+        <label>Data Inicial:</label>
+        <input type="date" name="dataInicial" id="dataInicial" required><br><br>
+        
+        <label>Data Final:</label>
+        <input type="date" name="dataFinal" id="dataFinal" required><br><br>
+
+        <label> Cliente:</label>
+        <select name="clienteId" id="clienteSelect" required="true">
+            <option >Select...</option>
+        </select><br><br>
+
+        <label> Livros: </label><br>
+        
+        <button type="submit">Atualizar</button>
+    </form>
+    <hr>
+    <br>
+    <button onclick="window.location.href = '/emprestimoEdit.html';">Voltar</button>
+</body>
+</html>
