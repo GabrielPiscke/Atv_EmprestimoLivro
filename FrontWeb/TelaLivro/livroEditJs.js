@@ -3,7 +3,6 @@
         function paramUrl(){
             const params = new URLSearchParams(window.location.search);
             const id = params.get("id");
-
             if (id) {
                 getLivroPorId(id);
             }
@@ -18,7 +17,7 @@
         }
 
         async function getLivroPorId(id) {
-
+         
             try {
                 let response = await fetch(`http://localhost:8080/livro/${id}`, {
                     method: "GET",
@@ -31,6 +30,7 @@
                 }
 
                 let data = await response.json();
+                preencheCamposForm(data);
 
             } catch (error) {
                 alert("Erro na requisição: " + error.message)
@@ -38,7 +38,7 @@
         }
 
         // ## Editar livros(PUT)
-        function criarObjeto(){
+        function criarObjetoJson(){
             let formData = {
                 nome: document.getElementById("nome").value,
                 autor: document.getElementById("autor").value,
@@ -52,7 +52,6 @@
         async function putLivro(event) {
             event.preventDefault();
             let id = document.getElementById("livroId").value;
-            
             let formData = criarObjetoJson()
 
             try {

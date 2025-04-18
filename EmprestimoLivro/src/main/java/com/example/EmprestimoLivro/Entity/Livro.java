@@ -35,7 +35,4 @@ public class Livro implements Serializable {
         this.isbn = isbn;
         this.genero = genero;
     }
-
-
-
 }

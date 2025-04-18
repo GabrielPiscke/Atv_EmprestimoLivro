@@ -65,8 +65,8 @@ public class LivroService {
             Livro livro = optionalLivro.get();
             livro.setNome(livroDTO.getNome());
             livro.setGenero(livroDTO.getGenero());
-            livro.setIsbn(livroDTO.getIsbn());;
-            livro.setAutor(livro.getAutor());
+            livro.setIsbn(livroDTO.getIsbn());
+            livro.setAutor(livroDTO.getAutor());
 
             Livro livroUpdate = livrorepository.save(livro);
 
