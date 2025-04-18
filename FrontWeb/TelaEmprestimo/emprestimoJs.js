@@ -1,11 +1,19 @@
-    // rendizar lista de emprestimos
+   
+   let mapaClientes = new Map(); // Mapa para armazenar os clientes pelo id
+
+   
+   // rendizar lista de emprestimos
     function criarListaEmprestimos(data){
+       
+
         let lista = document.getElementById("listaEmprestimo");
         lista.innerHTML = "";
         data.forEach(emprestimo => {
+            let clienteId = emprestimo.cliente?.id ?? emprestimo.cliente_id;
+            let nomeCliente = mapaClientes.get(parseInt(clienteId)) || "Sem nome!";
             let item = document.createElement("li");
-            item.textContent = `ID: ${emprestimo.id} - Data Inicial: ${emprestimo.dataInicial} - DataFinal: ${emprestimo.dataFinal}
-                - Cliente: ${emprestimo.cliente?.nome || "sem nome"}`; // Se o nome no banco de dados for null, entao ele retorna "sem nome"
+            item.textContent = `ID: ${emprestimo.id} - Data Inicial: ${emprestimo.data_inicial} - DataFinal: ${emprestimo.data_final}
+                - Cliente: ${nomeCliente}`; // Se o nome no banco de dados for null, entao ele retorna "sem nome"
                 // se existir um nome apenas exibe o nome. Evitando assim erro
             
             // botão de editar
@@ -67,22 +75,28 @@
     async function getClientes(){
         try {
             let response = await fetch("http://localhost:8080/cliente", {
-            method: "GET",
+                method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
-
+    
             if(!response.ok){
-                alert("Erro do back-end" + response.status)
-                return
+                alert("Erro do back-end" + response.status);
+                return;
             }
-
-            let data = await response.json()
-
-            criarCampoSelectCliente(data)
+    
+            let data = await response.json();
+    
+            // Preenche o mapa: id => nome
+            data.forEach(cliente => {
+                mapaClientes.set(cliente.id, cliente.nome);
+            });
+    
+            criarCampoSelectCliente(data);
         } catch (error) {
-            alert("Erro na requisição: " + error.message)
+            alert("Erro na requisição: " + error.message);
         }
     }
+    
 
     // Buscar Livros
     async function getLivros(){
@@ -127,12 +141,13 @@
 
         return formData;
     }
+
     // enviar emprestimo
     async function postEmprestimo(event) {
         event.preventDefault();
         
         let formData = criarObjetoEmprestimo();
-        console.log(formData)
+        console.log(formData);
         
         try {
             let response = await fetch("http://localhost:8080/emprestimo", {
@@ -142,11 +157,11 @@
             });
 
             if(!response.ok){
-                alert("Erro do back-end" + response.status)
+                alert("Erro do back-end " + response.status)
                 return
             }
 
-            let data = await response.json()
+            let data = await response.json();
 
             alert("Sucesso: " + JSON.stringify(data));
             getEmprestimo();
@@ -169,7 +184,7 @@
                 return
             }
 
-            let data = await response.json()
+            let data = await response.json();
 
             criarListaEmprestimos(data);
         } catch (error) {
@@ -198,9 +213,9 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        getClientes() // buscar os clientes disponíveis no sistema, assim que a página carregar
-        getLivros() // buscar os livros disponíveis no sistema assim que a página carregar
+    document.addEventListener("DOMContentLoaded", async () => {
+      await getClientes(); // buscar os clientes disponíveis no sistema, assim que a página carregar
+        getLivros() ;// buscar os livros disponíveis no sistema assim que a página carregar
         document.getElementById("emprestimoForm").addEventListener("submit", postEmprestimo);
         document.getElementById("carregarEmprestimo").addEventListener("click", getEmprestimo);
     });
