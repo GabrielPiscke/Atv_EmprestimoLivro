@@ -31,7 +31,7 @@
     
                 let data = await response.json()
     
-                alert("Sucesso: " + JSON.stringify(data));
+                alert("Livro Cadastrado com Sucesso!");
             } catch (error) {
                 alert("Erro na requisição: " + error.message)
                 
@@ -72,10 +72,10 @@
         async function getLivros(event) {
             event.preventDefault()
 
-            let nomeBusca = document.getElementById("nomeBusca").value; // acrecentando filtro de nome a busca, caso necessário
+            let generoBusca = document.getElementById("generoBusca").value; // acrecentando filtro de nome a busca, caso necessário
 
             try {
-                let response = await fetch(`http://localhost:8080/livro?nome=${nomeBusca}`, {
+                let response = await fetch(`http://localhost:8080/livro?genero=${generoBusca}`, {
                 method: "GET",
                     headers: { "Content-Type": "application/json" },
                 });
@@ -108,6 +108,7 @@
                     }
                     alert("Livro deletado com sucesso!");
                     getLivros();
+
                 } catch (error) {
                     alert("Erro na requisição: " + error.message)
                 }
